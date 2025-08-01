@@ -91,7 +91,7 @@ At the top there are two buttons, one for the user to be able to log out and see
 
 When clicking on the button to create a project, the user is asked to enter a name for the project, after that, they are redirected to a page where they can develop, edit and observe their project in real time with the Save as Public options, that is, when clicking in the button the project is added to a community where other users will be able to see the code created, Save as Private where a different plan is needed from the free plan to be able to be used, a button to be able to see the project better and another to exit the edition of the project.</p>
 <p align="center">
- <img src="https://i.gyazo.com/cf74b9e8546d55c167868518a2d6342e.png" align="center"></p>
+ <img src="v1.0/demo.png" align="center"></p>
 
    
   
