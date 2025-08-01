@@ -1,0 +1,630 @@
+//DEFINE VARIABLES
+var curId = "";
+var contextMenu = ".availableSettings, .profile-stuff, .notifications";
+var hideTrigger = ".frame";
+var loader =
+  '<div class="loader"><div class="circle"></div><div class="circle"></div><div class="circle"></div><div class="circle"></div><div class="circle"></div></div>';
+var send = false;
+
+$(document).ready(function() {
+    
+    if(modal_profile == 1)
+    {
+        $(".darkFrame").fadeIn();
+        $(".require-email").show();
+    }
+    
+    $('.require-email > .submit-pt').click(function(e){
+        if(send == false) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(".require-email").find('.modal-error').remove();
+             $.ajax({
+              url: base_url + "pagamento/pagamento/update_profile_and_set_bonus",
+              type: "post",
+              dataType: 'json',
+              data: {
+                email: $('.require-email').find('input[name=data-email]').val(),
+                tel: $('.require-email').find('input[name=data-tel]').val()
+              },
+              success: function(response) {
+                if (response.valid == true) {
+                    send = true;
+                    $(".require-email").find('.modal-title').html('Obrigado!');
+                    $(".require-email").find('.modal-text').html('O seu perfil foi atualizado com sucesso e você recebeu 1 mês grátis para aproveitar os benefícios do plano premium.');
+                    $(".require-email").find('.modal-input,.modal-error').hide();
+                    $(".require-email").find('.closeThis').html('Fechar');
+                }
+                else
+                {
+                    $( '<p class="modal-error">Erro ao atualizar o perfil, informe um telefone e e-mail válido e tente novamente.</p>' ).insertBefore( ".require-email > .closeThis" );
+                }
+              }
+            });  
+        }
+        else
+        {
+           location.reload(); 
+        }
+    });
+    
+    $('.require-email > .submit-en').click(function(e){
+        if(send == false) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(".require-email").find('.modal-error').remove();
+             $.ajax({
+              url: base_url + "pagamento/pagamento/update_profile_and_set_bonus",
+              type: "post",
+              dataType: 'json',
+              data: {
+                email: $('.require-email').find('input[name=data-email]').val(),
+                tel: $('.require-email').find('input[name=data-tel]').val()
+              },
+              success: function(response) {
+                if (response.valid == true) {
+                    send = true;
+                    $(".require-email").find('.modal-title').html('Thank you!');
+                    $(".require-email").find('.modal-text').html('Your profile has been successfully updated and you received 1 month free to enjoy the benefits of the premium plan.');
+                    $(".require-email").find('.modal-input,.modal-error').hide();
+                    $(".require-email").find('.closeThis').html('Close');
+                }
+                else
+                {
+                    $( '<p class="modal-error">Error updating, complete with a phone number and valid email address and try again.</p>' ).insertBefore( ".require-email > .closeThis" );
+                }
+              }
+            });  
+        }
+        else
+        {
+           location.reload(); 
+        }
+    });
+    
+    
+  $(".project-search").on("keyup search", function() {
+    var value = $(this)
+      .val()
+      .toLowerCase();
+    $("#lista .entry").filter(function() {
+      $(this).toggle(
+        $(this)
+          .text()
+          .toLowerCase()
+          .indexOf(value) > -1
+      );
+    });
+  });
+
+  $("body").on("click", "#acessarbtn", function() {
+    directory = $(".span").attr("data-root");
+    switch (service) {
+      case "Dropbox":
+        acessar_dropbox(directory);
+        break;
+      case "Github":
+        acessar_github(directory);
+        break;
+      case "Gitlab":
+        acessar_github(directory);
+        break;
+      default:
+      // code
+    }
+  });
+  
+  function acessar_github(directory)
+  {
+    $.ajax({
+      url: "https://devmind.io/workspace/github_final",
+      type: "post",
+      data: {
+        dir: directory
+      },
+      success: function(response) {
+        if (response.trim() != "false") {
+          window.location.replace(base_url + "workspace");
+        }
+      }
+    });  
+  }
+  
+  function acessar_dropbox(directory)
+  {
+  $(".filetree").html(loader);
+    $.ajax(
+    {
+        url: base_url + "workspace/ftp_login_finale",
+        type: "post",
+        data:
+        {
+            dir: directory
+        },
+        success: function(response)
+        {
+            if (response.trim() != "false")
+            {
+                window.location.replace( base_url + "workspace");
+            }
+        }
+    });
+  }
+
+  $("body").on("change", ".devmind-github-select", function() {
+    $(".filetree").html(loader);
+    $.ajax({
+      url: "set_branch",
+      type: "post",
+      data: {
+        branch: $(".devmind-github-select :selected").text()
+      },
+      success: function(response) {
+        $(".span").html("/");
+        $(".span").attr("data-root", "/");
+
+        $(".filetree").fileTree(
+          {
+            root: "/",
+            script: "https://devmind.io/workspace/scan/github_auth_files"
+          },
+          function(file) {}
+        );
+      }
+    });
+  });
+
+  $("body").on("click", "#send", function() {
+    switch (service) {
+      case "Dropbox":
+        send_dropbox();
+        break;
+      case "Github":
+        send_git();
+        break;
+      case "Gitlab":
+        send_git();
+        break;
+      default:
+      // code
+    }
+  });
+
+  function send_git() {
+    $.ajax({
+      url: "set_branch",
+      type: "post",
+      data: {
+        branch: "unset_branch"
+      },
+      success: function(response) {
+        active_id = "";
+        active_name = "";
+        active_id = $(".entry-selected").attr("data-id");
+        active_name = $(".entry-selected").attr("data-name");
+        $(".devmind-github-select").html("");
+        $(".filetree").html(loader);
+
+        $.ajax({
+          url: "scan/github_auth",
+          type: "post",
+          data: {
+            ide: active_id,
+            nami: active_name
+          },
+
+          success: function(response) {
+            if (response.trim() == "true") {
+              $(".span").html("/");
+              $(".span").attr("data-root", "/");
+
+              $.ajax({
+                url: "get_branches",
+
+                success: function(response) {
+                  response = $.parseJSON(response);
+
+                  response.forEach(function(index, number) {
+                    $(".devmind-github-select").append(
+                      '<option value="' +
+                        index.name +
+                        '">' +
+                        index.name +
+                        "</option>"
+                    );
+                  });
+
+                  $(".span").html("/");
+                  $(".span").attr("data-root", "/");
+
+                  if ($(".devmind-github-select option[value=master]").length) {
+                    $(".devmind-github-select").val("master");
+                  } else {
+                    $(".devmind-github-select option:first").val();
+                  }
+
+                  refresh_project_list();
+
+                  $(".filetree").html(loader);
+                  $.ajax({
+                    url: "set_branch",
+                    type: "post",
+                    data: {
+                      branch: $(".devmind-github-select :selected").text()
+                    },
+                    success: function(response) {
+                      $(".filetree").fileTree(
+                        {
+                          root: "/",
+                          script:
+                            "https://devmind.io/workspace/scan/github_auth_files_root"
+                        },
+                        function(file) {}
+                      );
+                    }
+                  });
+                }
+              });
+            } else {
+              refresh_project_list();
+            }
+          }
+        });
+      }
+    });
+  }
+
+  function send_dropbox() {
+    active_id = $(".entry-selected").data("id");
+
+    $(".filetree").html(loader);
+    $.ajax({
+      url: base_url + "workspace/scan/auth",
+      type: "post",
+      data: {
+        ide: active_id
+      },
+
+      success: function(response) {
+        if (response.trim() == "true") {
+          $(".span").html("/");
+          $(".span").attr("data-root", "/");
+
+          $(".filetree").fileTree(
+            {
+              root: "/",
+              script: base_url + "workspace/scan/display_auth_files"
+            },
+            function(file) {}
+          );
+        } 
+        else 
+        {
+          $(".darkFrame").fadeIn();
+          var error = $(".darkFrame").find(".error");
+          error.find('.modal-title').html('Não foi possível conectar!');
+          error.find('.modal-text').html('Verifique as credenciais de acesso e tente novamente.');
+          error.show();
+          $(".cancel-dir").trigger('click');
+        }
+      }
+    });
+  }
+
+  refresh_project_list();
+
+  $("body").on("click", ".submit-project", function(e) {
+    e.preventDefault();
+    $(".project-wrap").hide();
+    $(".projManager").show();
+    p_name = $("#projname").val();
+
+    var form = $("#ftp_form");
+
+    encrypt_form(form, function(value) {
+      var string = value;
+
+      $.ajax({
+        url: base_url + "workspace/edit_ftp_project",
+        type: "post",
+        data: {
+          str: string,
+          ide: curId
+        },
+        success: function(response) {
+          if (response.trim() == "true") 
+          {
+            refresh_project_list();
+          } 
+          else 
+          {
+          }
+        }
+      }).done(function(){
+        $(".project-wrap").show();
+        $(".projManager").hide();
+        $(".new-project").fadeOut(125);
+      });
+    });
+  });
+
+  //Faz com que os menus sumam com o clique em certas regiões da tela
+  $(hideTrigger).click(function() {
+    $(contextMenu).hide();
+  });
+
+  //Mostra o menu de contexto relacionado as notificações e restaura o icone para o estado padrão
+  $(".notif, .notifCount").click(function() {
+    $(".profile-stuff, .notifCount, .availableSettings").hide();
+    $(".notif").removeClass("hasNotif");
+    $(".notifications").slideToggle(85);
+  });
+
+  //Mostra o menu de contexto relacionado as configurações
+  $(".config, .option").click(function() {
+    $(".notifications, .profile-stuff").hide();
+    $(".availableSettings").slideToggle(85);
+  });
+
+  //Mostra o menu de contexto relacionado ao perfil
+  $(".profile-pic").click(function() {
+    $(".notifications, .availableSettings").hide();
+    $(".profile-stuff").slideToggle(85);
+  });
+
+  //Quando uma entrada é selecionada, faz com que as demais sejam deselecionadas.
+  $("body").on("click", ".entry", function(e) {
+    if (navigator.language === "pt-BR") {
+        $("#send").text("Próximo");
+        $("#acessarbtn").text("Conectar");
+    } else {
+        $("#send").text("Next");
+        $("#acessarbtn").text("Connect");
+    }
+    $(".acess").removeAttr("disabled");
+    $(".entry").removeClass("entry-selected");
+    $(this).addClass("entry-selected");
+  });
+
+  $(".addProj").click(function() {
+    curId = "";
+    $(".create-project h2").html("Novo Projeto");
+    $(".submit-project").html("Criar Projeto");
+    $(".projname").val('');
+    $(".new-project").fadeIn(125);
+  });
+
+  $(".cancel").click(function() {
+    $(".new-project").fadeOut(125);
+  });
+
+  //move a tela de projetos para a esquerda e mostra a tela de diretórios
+  $(".acess").click(function() {
+    $(".project-manager").animate({ left: "-100%", opacity: "0" });
+    $(".directory-manager").addClass("active");
+  });
+
+  $(".cancel-dir").click(function() {
+    if ($(window).width() > 900) {
+      $(".project-manager").animate({ left: "30vw", opacity: "1" });
+      $(".directory-manager").removeClass("active");
+    } else if ($(window).width() <= 320) {
+      $(".project-manager").animate({ left: "0px", opacity: "1" });
+      $(".directory-manager").removeClass("active");
+    } else {
+      $(".project-manager").animate({ left: "10vw", opacity: "1" });
+      $(".directory-manager").removeClass("active");
+    }
+  });
+
+  if ($(window).width() <= 460) {
+    $(".project-search").click(function() {
+      $(".project-manager").addClass("keyboard-active");
+    });
+    
+    $(".project-search").focusout(function() {
+      $(".project-manager").removeClass("keyboard-active");
+    });
+  }
+});
+
+$("body").on("click", ".edit_project", function() {
+  $(".create-project h2").html("Editar Projeto");
+  $(".project-wrap").hide();
+  $(".submit-project").html("Salvar");
+  $(".projManager").show();
+  $(".new-project").fadeIn(125);
+  curId = $(this).parents(".entry").data("id");
+  $.ajax({
+    url: base_url + "workspace/get_ftp_projects",
+    dataType: "json",
+    type: "POST",
+    scriptCharset: "utf-8",
+    data: {
+      id: curId
+    },
+    success: function(response) {
+      if (response.success === true) {
+        var credential = response.credential;
+        if (credential.ftps != undefined)
+        {
+            $("#sftp").attr("checked","checked");
+        }
+        else
+        {
+            $("#sftp").removeAttr("checked");
+        }
+
+        $("#projname").val(credential.projname);
+        $("#url").val(credential.ftp);
+        $("#nome").val(credential.username);
+        $("#senha").val(decodeURIComponent(credential.password));
+        $("#porta").val(credential.porta);
+        $(".projManager").fadeOut();
+        $(".project-wrap").fadeIn();
+      }
+    }
+  });
+});
+
+function refresh_project_list() {
+  $("#lista").html(loader);
+  switch (service) {
+    case "Dropbox":
+      dropbox_projects();
+      break;
+    case "Github":
+      github_projects();
+      break;
+    case "Gitlab":
+      github_projects();
+      break;
+    default:
+    // code
+  }
+}
+
+function github_projects() {
+  $.ajax({
+    url: "https://devmind.io/workspace/github_projects",
+    type: "post",
+
+    success: function(response) {
+      $("#lista").html("");
+
+      if (
+        response.trim() != "{}" &&
+        response.trim() != "false" &&
+        response.trim() !== ""
+      ) {
+        response = $.parseJSON(response);
+        $(response).each(function(index, obj) {
+          var fullName = (obj.full_name != undefined) ? obj.full_name.trim() : obj.name_with_namespace.trim().replace(/ /g, "");
+          $("#lista").append(
+            '<div data-name="' +
+              fullName +
+              '" data-id="' +
+              obj.id +
+              '" class="entry"><p>' +
+              obj.name +
+              '</p><p class="second-p">' +
+              fullName +
+              "</p><span>" +
+              fullName +
+              "</span></div>"
+          );
+        });
+      }
+    }
+  });
+}
+
+function dropbox_projects() {
+  $.ajax({
+    url: base_url + "workspace/list_projects_ftp",
+    type: "post",
+    dataType: "json",
+
+    success: function(response) {
+      if (
+        response != "{}" &&
+        response != "false" &&
+        response !== ""
+      ) {
+        $("#lista").html("");
+        
+        for(var id in response)
+        {
+          $("#lista").append(
+                '<div data-name="' +
+                  response[id].name +
+                  '" data-id="' +
+                  response[id].id +
+                  '" class="entry"><p>' +
+                  response[id].name +
+                  "</p>" +
+                  $(".managementTools")[0].outerHTML +
+              "</div>"
+          );
+        };
+      }
+    }
+  });
+}
+
+$("body").on("click", ".closeThis, .closeModal", function() {
+    $(".darkFrame").fadeOut();
+    $(".confirmar-excluir, .error").hide();
+    console.log(modal_profile)
+    if(modal_profile != 1){
+        tour.start();
+    }
+});
+
+$("body").on("click", ".delete_project", function() {
+  $(".darkFrame").fadeIn();
+  $(".confirmar-excluir").show();
+  curId = $(this).parents(".entry").data("id");
+  $('.confirma-delete').data('id',curId);
+  /*
+//function delete_project(nb) {
+  */
+});
+
+$('.confirma-delete').click(function()
+{
+    curId = $(this).data('id');
+    $.ajax({
+        url: "workspace/delete_ftp_project",
+        type: "post",
+        data: {
+          id: curId
+        },
+    
+        success: function(response) {
+          refresh_project_list();
+        }
+    }).done(function() {
+      $(".darkFrame").fadeOut();
+      $(".confirmar-excluir").hide();
+    });
+});
+
+function root_folder(el) {
+  $(".span").html($(el).attr("rel"));
+  $(".span").attr("data-root", $(el).attr("rel"));
+
+  var napalm = $(".span")
+    .html()
+    .split("/");
+
+  if (napalm.length >= 6) {
+    text =
+      ".../" +
+      napalm[napalm.length - 3] +
+      "/" +
+      napalm[napalm.length - 2] +
+      "/" +
+      napalm[napalm.length - 1];
+    $(".span").html(text);
+  }
+}
+
+// Get the modal
+var modal = document.getElementById("myModal");
+// Get the button that opens the modal
+var btn = document.getElementById("newproject");
+
+// Get the <span> element that closes the modal
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+  document.getElementById("loader").style.css = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}

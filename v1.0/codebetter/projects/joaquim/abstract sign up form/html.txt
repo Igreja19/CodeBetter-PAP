@@ -1,0 +1,7 @@
+<div id="contact-us">
+  <form> 
+    <input placeholder="Name" type="text" required="">
+    <input placeholder="Email" type="email" name="customerEmail">
+    <input placeholder="Phone" type="tel" name="customerPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+
+    <button type="button"> SIGN UP</button>

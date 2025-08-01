@@ -1,0 +1,220 @@
+function goBoom(event){
+  //get mouse coords
+  var x = event.clientX;
+  var y = event.clientY; 
+  
+  //create main boom element
+  document.getElementById(&quot;body&quot;).innerHTML = &quot;&lt;div id='boom&quot; + x + &quot;'&gt;&lt;/div&gt;&quot;;
+
+  //create boom class and add it to div
+  var attClass = document.createAttribute(&quot;class&quot;);
+  attClass.value = &quot;boom&quot;;
+  document.getElementById(&quot;boom&quot; + x).setAttributeNode(attClass);
+  
+  //get new random color
+  var r = randNum(0,255);
+  var g = randNum(0,255);
+  var b = randNum(0,255);
+  var newColor = &quot;rgb(&quot; + r + &quot;,&quot; + g + &quot;,&quot; + b + &quot;)&quot;;
+  
+  //randomize the boom color
+  document.getElementById(&quot;boom&quot; + x).style.backgroundColor = newColor;
+  
+  //start the boom position at mouse click
+  document.getElementById(&quot;boom&quot; + x).style.top = y + 'px';
+  document.getElementById(&quot;boom&quot; + x).style.left = x + 'px';
+
+  //get a complimentary color 1
+  var r1 = corrected(Math.round(complimentary(r)));
+  var g1 = corrected(Math.round(complimentary(g)));
+  var b1 = corrected(Math.round(complimentary(b)));
+  var bubbleColor1 = &quot;rgb(&quot; + r1 + &quot;,&quot; + g1 + &quot;,&quot; + b1 + &quot;)&quot;;
+  //get a complimentary color 2
+  var r2 = corrected(Math.round(complimentary2(r)));
+  var g2 = corrected(Math.round(complimentary2(g)));
+  var b2 = corrected(Math.round(complimentary2(b)));
+  var bubbleColor2 = &quot;rgb(&quot; + r2 + &quot;,&quot; + g2 + &quot;,&quot; + b2 + &quot;)&quot;;
+  //get a complimentary color 3
+  var r3 = corrected(Math.round(complimentary3(r)));
+  var g3 = corrected(Math.round(complimentary3(g)));
+  var b3 = corrected(Math.round(complimentary3(b)));
+  var bubbleColor3 = &quot;rgb(&quot; + r3 + &quot;,&quot; + g3 + &quot;,&quot; + b3 + &quot;)&quot;;
+  //get a complimentary color 4
+  var r4 = corrected(r + 42.5);
+  var g4 = corrected(r + 42.5);
+  var b4 = corrected(r + 42.5);
+  var bubbleColor4 = &quot;rgb(&quot; + r4 + &quot;,&quot; + g4 + &quot;,&quot; + b4 + &quot;)&quot;;
+  //get a complimentary color 5
+  var r5 = corrected(r - 42.5);
+  var g5 = corrected(g - 42.5);
+  var b5 = corrected(b - 42.5);
+  var bubbleColor5 = &quot;rgb(&quot; + r5 + &quot;,&quot; + g5 + &quot;,&quot; + b5 + &quot;)&quot;;
+  //get a complimentary color 6
+  var r6 = corrected(r + 85);
+  var g6 = corrected(r + 85);
+  var b6 = corrected(r + 85);
+  var bubbleColor6 = &quot;rgb(&quot; + r6 + &quot;,&quot; + g6 + &quot;,&quot; + b6 + &quot;)&quot;;
+  //get a complimentary color 7
+  var r7 = corrected(r - 85);
+  var g7 = corrected(g - 85);
+  var b7 = corrected(b - 85);
+  var bubbleColor7 = &quot;rgb(&quot; + r7 + &quot;,&quot; + g7 + &quot;,&quot; + b7 + &quot;)&quot;;
+  
+  //get a complimentary color 8
+  var r8 = corrected(r + 127.5);
+  var g8 = corrected(r + 127.5);
+  var b8 = corrected(r + 127.5);
+  var bubbleColor8 = &quot;rgb(&quot; + r8 + &quot;,&quot; + g8 + &quot;,&quot; + b8 + &quot;)&quot;;
+  //get a complimentary color 9
+  var r9 = corrected(r - 127.5);
+  var g9 = corrected(g - 127.5);
+  var b9 = corrected(b - 127.5);
+  var bubbleColor9 = &quot;rgb(&quot; + r9 + &quot;,&quot; + g9 + &quot;,&quot; + b9 + &quot;)&quot;;
+  
+  //bubbles!
+  //1
+  document.getElementById(&quot;body&quot;).innerHTML += &quot;&lt;div id='bubble1' class='bubble1'&gt;&lt;/div&gt;&quot;;
+  
+  //start the bubble position at mouse click
+  document.getElementById(&quot;bubble1&quot;).style.top = (y + randNum(-20,20)) + 'px';
+  document.getElementById(&quot;bubble1&quot;).style.left = (x + randNum(-20,20)) + 'px';
+  
+  document.getElementById(&quot;bubble1&quot;).style.backgroundColor = bubbleColor1;
+
+  //2
+  document.getElementById(&quot;body&quot;).innerHTML += &quot;&lt;div id='bubble2' class='bubble2'&gt;&lt;/div&gt;&quot;;
+  
+  //start the bubble position at mouse click
+  document.getElementById(&quot;bubble2&quot;).style.top = (y + randNum(-25,25)) + 'px';
+  document.getElementById(&quot;bubble2&quot;).style.left = (x + randNum(-25,25)) + 'px';
+  
+  document.getElementById(&quot;bubble2&quot;).style.backgroundColor = bubbleColor1;
+  
+  //3
+  document.getElementById(&quot;body&quot;).innerHTML += &quot;&lt;div id='bubble3' class='bubble3'&gt;&lt;/div&gt;&quot;;
+  
+  //start the bubble position at mouse click
+  document.getElementById(&quot;bubble3&quot;).style.top = (y + randNum(-45,45)) + 'px';
+  document.getElementById(&quot;bubble3&quot;).style.left = (x + randNum(-45,45)) + 'px';
+  
+  document.getElementById(&quot;bubble3&quot;).style.backgroundColor = bubbleColor3;
+  
+  //circular numbers
+  var circX = randNum(-65,65);
+  var circY = randNum(-65,65);
+  
+  //4
+  document.getElementById(&quot;body&quot;).innerHTML += &quot;&lt;div id='bubble4' class='bubble4'&gt;&lt;/div&gt;&quot;;
+  
+  //start the bubble position at mouse click
+  document.getElementById(&quot;bubble4&quot;).style.top = (y + circY) + 'px';
+  document.getElementById(&quot;bubble4&quot;).style.left = (x + circX) + 'px';
+  
+  document.getElementById(&quot;bubble4&quot;).style.backgroundColor = bubbleColor4;
+  
+  /*
+  //Meant to be a ring of bubbles like a firework. TODO: refactor.
+  //5
+  document.getElementById(&quot;body&quot;).innerHTML += &quot;&lt;div id='bubble5' class='bubble5'&gt;&lt;/div&gt;&quot;;
+  
+  //start the bubble position at mouse click
+  document.getElementById(&quot;bubble5&quot;).style.top = (y - circY) + 'px';
+  document.getElementById(&quot;bubble5&quot;).style.left = (x - circX) + 'px';
+  
+  document.getElementById(&quot;bubble5&quot;).style.backgroundColor = bubbleColor5;
+    
+  //6
+  document.getElementById(&quot;body&quot;).innerHTML += &quot;&lt;div id='bubble6' class='bubble6'&gt;&lt;/div&gt;&quot;;
+  
+  //start the bubble position at mouse click
+  document.getElementById(&quot;bubble6&quot;).style.top = (y) + 'px';
+  document.getElementById(&quot;bubble6&quot;).style.left = (x + circX) + 'px';
+  
+  document.getElementById(&quot;bubble6&quot;).style.backgroundColor = bubbleColor6;
+      
+  //7
+  document.getElementById(&quot;body&quot;).innerHTML += &quot;&lt;div id='bubble7' class='bubble7'&gt;&lt;/div&gt;&quot;;
+  
+  //start the bubble position at mouse click
+  document.getElementById(&quot;bubble7&quot;).style.top = (y - circY) + 'px';
+  document.getElementById(&quot;bubble7&quot;).style.left = (x) + 'px';
+  
+  document.getElementById(&quot;bubble7&quot;).style.backgroundColor = bubbleColor7;
+  
+    
+  //8
+  document.getElementById(&quot;body&quot;).innerHTML += &quot;&lt;div id='bubble8' class='bubble8'&gt;&lt;/div&gt;&quot;;
+  
+  //start the bubble position at mouse click
+  document.getElementById(&quot;bubble8&quot;).style.top = (y + circY) + 'px';
+  document.getElementById(&quot;bubble8&quot;).style.left = (x) + 'px';
+  
+  document.getElementById(&quot;bubble8&quot;).style.backgroundColor = bubbleColor8;
+      
+  //9
+  document.getElementById(&quot;body&quot;).innerHTML += &quot;&lt;div id='bubble9' class='bubble9'&gt;&lt;/div&gt;&quot;;
+  
+  //start the bubble position at mouse click
+  document.getElementById(&quot;bubble9&quot;).style.top = (y) + 'px';
+  document.getElementById(&quot;bubble9&quot;).style.left = (x - circX) + 'px';
+  
+  document.getElementById(&quot;bubble9&quot;).style.backgroundColor = bubbleColor9;
+  */
+  
+  //set background and tap circle to new color
+  setTimeout(function(){document.body.style.backgroundColor = newColor; document.getElementsByClassName(&quot;tapperoo&quot;)[0].style.backgroundColor = bubbleColor5; document.getElementsByClassName(&quot;hand&quot;)[0].style.fill = &quot;rgba(0,0,0,0.9)&quot;}, 800);
+}
+
+
+//random number generator
+function randNum(from, to) {
+  return Math.floor(Math.random() * (to - from + 1) + from);
+}
+
+document.getElementById(&quot;body&quot;).addEventListener(&quot;click&quot;, goBoom);
+
+
+//complimentary colors
+function complimentary(x){
+  return 255 - Math.abs((x - 127.5));
+}
+function complimentary2(x){
+  return 255 - Math.abs((x - 63.75));
+}
+function complimentary3(x){
+  return 255 - Math.abs((x - 191.25));
+}
+
+//correct for numbers over 255 and under 0
+function corrected(x){
+  var val = (x*1);
+  if(val &gt; 255){
+    return 255;
+  } else if (val &lt; 0){
+    return 0;
+  } else {
+    return Math.round(val);
+  }
+}
+
+//stuff to prompt the user to click
+//Shows the animation if your mouse is still for 3 seconds/hides it when you move
+var fadein = null;
+$(&quot;html&quot;).mousemove(function() {
+  $(&quot;.box&quot;).stop().fadeOut(300);
+  if (fadein != null) {
+    clearTimeout(fadein);
+  }
+  fadein = setTimeout(showMe, 5000);
+});
+$(&quot;html&quot;).click(function() {
+  $(&quot;.box&quot;).stop().fadeOut(300);
+  if (fadein != null) {
+    clearTimeout(fadein);
+  }
+  fadein = setTimeout(showMe, 5000);
+});
+
+function showMe() {
+  $(&quot;.box&quot;).stop().fadeIn();
+}

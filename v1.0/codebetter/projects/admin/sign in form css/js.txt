@@ -1,0 +1,74 @@
+// correct password is `password` lol
+
+const $ = (s, o = document) =&gt; o.querySelector(s);
+const $$ = (s, o = document) =&gt; o.querySelectorAll(s);
+
+const login = $('#login-form');
+const passwordContainer = $('.password', login);
+const password = $('input', passwordContainer);
+const passwordList = $('.dots', passwordContainer);
+const submit = $('button', login);
+
+password.addEventListener('input', e =&gt; {
+    if(password.value.length &gt; $$('i', passwordList).length) {
+        passwordList.appendChild(document.createElement('i'));
+    }
+    submit.disabled = !password.value.length;
+    passwordContainer.style.setProperty('--cursor-x', password.value.length * 10 + 'px');
+});
+
+let pressed = false;
+
+password.addEventListener('keydown', e =&gt; {
+
+    if(pressed || login.classList.contains('processing') || (password.value.length &gt; 14 &amp;&amp; e.keyCode != 8 &amp;&amp; e.keyCode != 13)) {
+        e.preventDefault();
+    }
+    pressed = true;
+
+    setTimeout(() =&gt; pressed = false, 50);
+
+    if(e.keyCode == 8) {
+        let last = $('i:last-child', passwordList);
+        if(last !== undefined &amp;&amp; last) {
+            last.classList.add('remove');
+            setTimeout(() =&gt; last.remove(), 50);
+        }
+    }
+
+});
+
+password.addEventListener('select', function() {
+    this.selectionStart = this.selectionEnd;
+});
+
+login.addEventListener('submit', e =&gt; {
+
+    e.preventDefault();
+
+    if(!login.classList.contains('processing')) {
+        login.classList.add('processing');
+        setTimeout(() =&gt; {
+
+            let cls = password.value == 'password' ? 'success' : 'error';
+            console.log(password.value);
+
+            login.classList.add(cls);
+            setTimeout(() =&gt; {
+                login.classList.remove('processing', cls);
+                if(cls == 'error') {
+                    password.value = '';
+                    passwordList.innerHTML = '';
+                    submit.disabled = true;
+                }
+            }, 2000);
+            setTimeout(() =&gt; {
+                if(cls == 'error') {
+                    passwordContainer.style.setProperty('--cursor-x', 0 + 'px');
+                }
+            }, 600);
+
+        }, 1500);
+    }
+
+});

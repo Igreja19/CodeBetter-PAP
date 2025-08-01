@@ -1,0 +1,396 @@
+ul.jqueryFileTree {
+  font-family: "Brandon Grotesque", Brandonreg, sans-serif !important;
+  color: rgb(25, 25, 25);
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  padding: 0;
+  margin: 6px;
+  list-style: none;
+  padding: 0;
+  padding-left: 13px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  font-size: 16px;
+  webkit-user-select: none;
+  user-select: none;
+}
+
+#fileTreeDemo_1 > ul:first-child {
+    margin-left: -8px;
+}
+
+ul.jqueryFileTree a {
+  text-decoration: none;
+  position: relative;
+  color: #bbb;
+  display: block;
+  padding-left: 32px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  -webkit-transition: all 0.13s ease-out;
+  -moz-transition: all 0.13s ease-out;
+  -ms-transition: all 0.13s ease-out;
+  -o-transition: all 0.13s ease-out;
+  transition: all 0.13s ease-out;
+}
+ul.jqueryFileTree a:hover {
+  color: #FFF;
+}
+.jqueryFileTree .directory, .jqueryFileTree .folderCopy, .jqueryFileTree .expanded {
+  background: url(images/simply/folder.png) 14px 9px no-repeat;
+  -webkit-background-size: 16px !important;
+  background-size: 16px !important;
+  -webkit-filter: brightness(1);
+  filter: brightness(1);
+}
+.jqueryFileTree .directory:before {
+  content: "►";
+  pointer-events: none;
+  margin-top: 7px;
+  position: relative;
+  float: left;
+  color: #888;
+  font-size: 8px;
+}
+.jqueryFileTree .folderCopy:before {
+  content: "►";
+  pointer-events: none;
+  margin-top: 7px;
+  position: relative;
+  float: left;
+  color: #888;
+  font-size: 8px;
+}
+.jqueryFileTree .expanded:before {
+  content: "▼";
+  pointer-events: none;
+  position: relative;
+  float: left;
+  color: #888;
+  margin-top: 7px;
+  font-size: 8px;
+}
+.jqueryFileTree .file {
+  background: url(images/simply/arqicon.png) 15px 7px no-repeat;
+  background-size: 16px !important;
+}
+.jqueryFileTree .fileCopy {
+  background: url(images/simply/arqicon.png) 15px 7px no-repeat;
+  background-size: 16px !important;
+}
+.jqueryFileTree .wait {
+  background: url(images/spinner.gif) 12px no-repeat !important;
+  background-size: 17px !important;
+}
+.jqueryFileTree .ext_1rs {
+  background: url(images/001.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_1mp {
+  background: url(images/001.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_1ce {
+  background: url(images/001.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_1at {
+  background: url(images/001.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_1ui {
+  background: url(images/001.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_1fo {
+  background: url(images/001.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_1sp {
+  background: url(images/001.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_1so {
+  background: url(images/001.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_1ts {
+  background: url(images/001.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_3gp {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_7z {
+  background: url(images/package.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_ai {
+  background: url(images/ai.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_au {
+  background: url(images/au.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_afp {
+  background: url(images/code.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_afpa {
+  background: url(images/code.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_aac {
+  background: url(images/audio.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_asp {
+  background: url(images/code.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_aspx {
+  background: url(images/code.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_avi {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_app {
+  background: url(images/exe.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_apk {
+  background: url(images/apk.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_bat {
+  background: url(images/bat.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_bmp {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_blend {
+  background: url(images/3d.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_c {
+  background: url(images/code.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_cfm {
+  background: url(images/simply/arqicon.png) 12px 3px no-repeat;
+  background-size: 16px !important;
+}
+.jqueryFileTree .ext_cgi {
+  background: url(images/simply/arqicon.png) 12px 3px no-repeat;
+  background-size: 16px !important;
+}
+.jqueryFileTree .ext_com {
+  background: url(images/simply/arqicon.png) 12px 3px no-repeat;
+  background-size: 16px !important;
+}
+.jqueryFileTree .ext_cpp {
+  background: url(images/simply/arqicon.png) 12px 3px no-repeat;
+  background-size: 16px !important;
+}
+.jqueryFileTree .ext_css {
+  background: url(images/code.png) 16px   4px center no-repeat;
+}
+.jqueryFileTree .ext_doc {
+  background: url(images/text.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_docx {
+  background: url(images/text.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_dat {
+  background: url(images/text.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_deb {
+  background: url(images/deb.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_dmg {
+  background: url(images/package.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_dot {
+  background: url(images/text.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_dwg {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_exe {
+  background: url(images/exe-msi.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_gif {
+  background: url(images/gif.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_gz {
+  background: url(images/package.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_fla {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_flv {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_h {
+  background: url(images/code.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_htm {
+  background: url(images/code.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_html {
+  background: url(images/code.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_ics {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_ico {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_indd {
+  background: url(images/indd.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_jar {
+  background: url(images/package.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_jpg {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_jpeg {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_js {
+  background: url(images/code.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_kgb {
+  background: url(images/package.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_lasso {
+  background: url(images/code.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_log {
+  background: url(images/simply/arqicon.png) 12px 3px no-repeat;
+  background-size: 5.5% !important;
+}
+.jqueryFileTree .ext_m4p {
+  background: url(images/audio.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_m4v {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_mid {
+  background: url(images/audio.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_mov {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_mp3 {
+  background: url(images/audio.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_mp4 {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_mpg {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_mpeg {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_mb {
+  background: url(images/3d.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_msi {
+  background: url(images/exe-msi.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_ogg {
+  background: url(images/audio.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_obj {
+  background: url(images/3d.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_pcx {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_pdn {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_pxu {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_pdf {
+  background: url(images/text.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_pgs {
+  background: url(images/text.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_php {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_png {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_ppt {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_psd {
+  background: url(images/psd.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_pl {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_py {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_prproj {
+  background: url(images/premiere.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_qt {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_rar {
+  background: url(images/package.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_rb {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_rbx {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_rhtml {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_rpm {
+  background: url(images/package.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_ruby {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_rflw {
+  background: url(images/code_blue.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_sql {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_svg {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_swf {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_tar {
+  background: url(images/package.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_tgz {
+  background: url(images/package.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_tif {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_tiff {
+  background: url(images/image.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_txt {
+  background: url(images/text.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_torrent {
+  background: url(images/torrent.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_vb {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_wav {
+  background: url(images/rec.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_wmv {
+  background: url(images/movies.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_xls {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_xml {
+  background: url(images/simply/arqicon.png) 16px   center no-repeat;
+}
+.jqueryFileTree .ext_zip {
+  background: url(images/package-zip.png) 16px   center no-repeat;
+}

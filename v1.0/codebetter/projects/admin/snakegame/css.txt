@@ -1,0 +1,11 @@
+body{
+  background:#FF6347;
+  margin:1%;
+  text-align:center;
+  color:#fff;
+}
+.hold{
+  width:940px;
+  margin:auto;
+  overflow:hidden;
+}
